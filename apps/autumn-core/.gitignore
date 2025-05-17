@@ -1,0 +1,20 @@
+.env
+.env.test
+.env.dev
+.env.prod
+.env.staging
+
+node_modules
+dist
+build
+pack.zip
+
+# Prisma
+prisma/generated
+prisma/cache
+prisma/migrations
+
+logs/
+
+private_attachments/*
+!private_attachments/*.example.*

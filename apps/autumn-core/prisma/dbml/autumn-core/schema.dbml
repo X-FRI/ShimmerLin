@@ -1,0 +1,38 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table api_model {
+  id String [pk]
+  name String [not null]
+  model String [unique, not null]
+  baseUrl String [not null]
+  apiKey String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  aiComminicate ai_comminicate [not null]
+}
+
+Table ai_comminicate_message {
+  id String [pk]
+  prompt String [not null]
+  modelId String [not null]
+  response Json [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  aiComminicate ai_comminicate [not null]
+}
+
+Table ai_comminicate {
+  id String [pk]
+  messageId String [unique, not null]
+  modelId String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  message ai_comminicate_message [not null]
+  model api_model [not null]
+}
+
+Ref: ai_comminicate.messageId > ai_comminicate_message.id
+
+Ref: ai_comminicate.modelId > api_model.id

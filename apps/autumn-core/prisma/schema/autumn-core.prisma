@@ -1,0 +1,54 @@
+generator client {
+  provider      = "prisma-client-js"
+  output        = "../generated/autumn-core"
+  binaryTargets = ["native", "rhel-openssl-3.0.x", "rhel-openssl-1.0.x", "linux-musl-openssl-3.0.x"]
+}
+
+// dbml generator
+generator dbml {
+  provider = "prisma-dbml-generator"
+  output   = "../dbml/autumn-core"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("AUTUMN_CORE_DATABASE_URL")
+}
+
+model ApiModel {
+  id            String          @id @default(uuid(7)) @map("id") @db.VarChar(36)
+  name          String          @map("name")
+  model         String          @unique @map("model")
+  baseUrl       String          @map("base_url")
+  apiKey        String          @map("api_key")
+  createdAt     DateTime        @default(now()) @map("created_at")
+  updatedAt     DateTime        @updatedAt @map("updated_at")
+  aiComminicate AiComminicate[]
+
+  @@map("api_model")
+}
+
+model AiComminicateMessage {
+  id            String          @id @default(uuid(7)) @map("id") @db.VarChar(36)
+  prompt        String          @map("prompt")
+  modelId       String          @map("model_id")
+  response      Json            @map("response")
+  createdAt     DateTime        @default(now()) @map("created_at")
+  updatedAt     DateTime        @updatedAt @map("updated_at")
+  aiComminicate AiComminicate[]
+
+  @@map("ai_comminicate_message")
+}
+
+model AiComminicate {
+  id        String   @id @default(uuid(7)) @map("id") @db.VarChar(36)
+  messageId String   @unique @map("message_id")
+  modelId   String   @map("model_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  message AiComminicateMessage @relation(fields: [messageId], references: [id])
+  model   ApiModel             @relation(fields: [modelId], references: [id])
+
+  @@map("ai_comminicate")
+}

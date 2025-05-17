@@ -1,0 +1,43 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "ui": "tui",
+  "globalPassThroughEnv": [
+    "PRISMA_FMT_BINARY",
+    "PRISMA_QUERY_ENGINE_BINARY",
+    "PRISMA_QUERY_ENGINE_LIBRARY",
+    "PRISMA_SCHEMA_ENGINE_BINARY"
+  ],
+  "tasks": {
+    "build": {
+      "dependsOn": [
+        "^build",
+        "autumn-core#prisma-gen"
+      ],
+      "inputs": [
+        "$TURBO_DEFAULT",
+        "apps/autumn-core/.env.*"
+      ],
+      "outputs": [
+        "dist/**",
+        "build/**",
+        "prisma/generated/**"
+      ]
+    },
+    "lint": {
+      "dependsOn": [
+        "^lint"
+      ]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "dev:staging": {
+      "cache": false,
+      "persistent": true
+    },
+    "gen:sdk": {
+      "cache": false
+    }
+  }
+}

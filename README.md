@@ -2,37 +2,28 @@
 
 <img src="./.github/logo.png" height="150px">
 
-# AutumnBot (WIP)
+# AutumnBot（铁暮秋）
 
-Simple home AI
+*A Framework for Bridging the Digital and Physical Worlds*
 
 </div>
 
-## Intro.
+AutumnBot is a powerful robot framework designed to connect anything within the digital realm to the physical world.
 
-AutumnBot is a very simple home AI solution. You can deploy it on an old laptop that has been abandoned. The camera of this old laptop will become AutumnBot's eyes, the microphone will become AutumnBot's ears, and the sound player will become AutumnBot's mouth...
+At its core, `autumn-core` is a NestJS service built with Domain-Driven Design (DDD) principles. It serves as the central hub, allowing peripheral services to connect and communicate over the network. This core handles the fundamental logic and coordination, enabling the framework's extensive capabilities.
 
-# Deploy
+Key Features:
 
-> [!IMPORTANT]
-> AutumnBot is currently only tested and depolyed on Linux. Other platforms are the oretically supported, but may require more work.
+*   **Robust Core:** Built with NestJS, a progressive Node.js framework, ensuring a scalable and maintainable application.
+*   **Domain-Driven Design:** Structured using DDD principles for clear separation of concerns and better manageability of complex domains.
+*   **Network Communication:** Designed for seamless communication with various peripheral services over the network.
 
-## Dependencies on Linux
+## WIP...
 
-| Application | Version |
-| ----------- | ------- |
-| espeak      | 1.48.*  |
-| ollama      | 0.1.44  |
-
-| Library       | Version |
-| ------------- | ------- |
-| libportaudio2 | 1.11    |
-| opencv        | 4.9.*   |
-
-# [LICENSE](./LICENSE)
+## [LICENSE](./LICENSE)
 
 ```
-Copyright (c) 2024 Muqiu Han
+Copyright (c) 2025 Somhairle H. Marisol
 
 All rights reserved.
 
@@ -44,7 +35,7 @@ are permitted provided that the following conditions are met:
     * Redistributions in binary form must reproduce the above copyright notice,
       this list of conditions and the following disclaimer in the documentation
       and/or other materials provided with the distribution.
-    * Neither the name of AutumnBot nor the names of its contributors
+    * Neither the name of Fringer nor the names of its contributors
       may be used to endorse or promote products derived from this software
       without specific prior written permission.
 
