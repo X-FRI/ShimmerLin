@@ -1,31 +1,53 @@
 import {
   AiComminicate,
   AiComminicateMessage,
+  AiComminicateMessageRole,
 } from "../../domain/model/ai-comminicate.model";
-import { APIModel } from "../../domain/model/api-model.model";
 import { AiComminicateMessage as PrismaAiComminicateMessage } from "@prisma/generated/autumn-core";
+import { ApiModel as PrismaApiModel } from "@prisma/generated/autumn-core";
+import { PrismaAPIModelMapper } from "./prisma-api-model.mapper";
 
-export class PrismaAiComminicateMessageMapper {
+export class PrismaAiComminicateMapper {
   public static toPersistence(
-    aicomminicateMessage: AiComminicateMessage,
-  ): PrismaAiComminicateMessage {
-    return {
-      id: aicomminicateMessage.id,
-      prompt: aicomminicateMessage.props.prompt,
-      modelId: aicomminicateMessage.props.modelId,
-      response: aicomminicateMessage.props.response,
-      createdAt: aicomminicateMessage.props.createdAt,
-      updatedAt: aicomminicateMessage.props.updatedAt,
-    };
+    aicomminicate: AiComminicate,
+  ): PrismaAiComminicateMessage[] {
+    return aicomminicate.props.messages.map((message) => ({
+      id: message.id,
+      role: message.props.role,
+      content: message.props.content,
+      model: message.props.model,
+      contextId: message.props.contextId,
+      apiModelId: aicomminicate.props.model.id,
+      createdAt: message.props.createdAt,
+      updatedAt: message.props.updatedAt,
+    }));
   }
 
   public static toDomain(
-    prismaAiComminicateMessage: PrismaAiComminicateMessage,
-  ): AiComminicateMessage {
-    return AiComminicateMessage.create({
-      prompt: prismaAiComminicateMessage.prompt,
-      modelId: prismaAiComminicateMessage.modelId,
-      response: prismaAiComminicateMessage.response?.toString() ?? "",
+    prismaAiComminicateMessages: PrismaAiComminicateMessage[],
+    prismaApiModel: PrismaApiModel,
+  ): AiComminicate {
+    return AiComminicate.create({
+      model: PrismaAPIModelMapper.toDomain(prismaApiModel),
+
+      messages: prismaAiComminicateMessages.map((message) => {
+        if (
+          AiComminicateMessageRole.includes(
+            message.role as AiComminicateMessageRole,
+          )
+        ) {
+          return AiComminicateMessage.reconstitute(message.id, {
+            role: message.role as AiComminicateMessageRole,
+            content: message.content,
+            model: message.model,
+            contextId: message.contextId,
+            createdAt: message.createdAt,
+            updatedAt: message.updatedAt,
+          });
+        }
+
+        throw new Error(`Invalid message role: ${message.role}`);
+      }),
     });
   }
 }

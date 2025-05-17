@@ -17,7 +17,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     const request = ctx.getRequest<Request>();
 
-    // 获取异常状态码和消息
+    // Get the status code and message from the exception
     const status =
       exception instanceof HttpException
         ? exception.getStatus()
@@ -28,13 +28,13 @@ export class GlobalExceptionFilter implements ExceptionFilter {
         ? exception.message
         : exception.message || "服务器内部错误";
 
-    // 记录错误信息
+    // Record the error information
     this.logger.error(`${request.method} ${request.url} FAILED`, {
       error: exception,
       body: request.body,
     });
 
-    // 返回错误响应
+    // Return the error response
     response.status(status).json({
       statusCode: status,
       message,

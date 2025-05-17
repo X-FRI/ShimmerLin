@@ -1,10 +1,12 @@
-import { AiComminicateMessage } from "../model/ai-comminicate.model";
+import {
+  AiComminicate,
+  AiComminicateMessage,
+} from "../model/ai-comminicate.model";
 import { APIModel } from "../model/api-model.model";
 
-export interface AIComminicateMessageApi {
+export interface AIComminicateApi {
   fastTextCompletion(
     apiModel: APIModel,
-    model: string,
-    prompt: string,
-  ): Promise<AiComminicateMessage>;
+    message: AiComminicate,
+  ): Promise<AiComminicate>;
 }

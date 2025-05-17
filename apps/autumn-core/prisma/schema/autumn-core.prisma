@@ -16,39 +16,30 @@ datasource db {
 }
 
 model ApiModel {
-  id            String          @id @default(uuid(7)) @map("id") @db.VarChar(36)
-  name          String          @map("name")
-  model         String          @unique @map("model")
-  baseUrl       String          @map("base_url")
-  apiKey        String          @map("api_key")
-  createdAt     DateTime        @default(now()) @map("created_at")
-  updatedAt     DateTime        @updatedAt @map("updated_at")
-  aiComminicate AiComminicate[]
+  id                   String                 @id @default(uuid(7)) @map("id") @db.VarChar(36)
+  name                 String                 @map("name")
+  model                String                 @unique @map("model")
+  baseUrl              String                 @map("base_url")
+  apiKey               String                 @map("api_key")
+  createdAt            DateTime               @default(now()) @map("created_at")
+  updatedAt            DateTime               @updatedAt @map("updated_at")
+  AiComminicateMessage AiComminicateMessage[]
 
   @@map("api_model")
 }
 
 model AiComminicateMessage {
-  id            String          @id @default(uuid(7)) @map("id") @db.VarChar(36)
-  prompt        String          @map("prompt")
-  modelId       String          @map("model_id")
-  response      Json            @map("response")
-  createdAt     DateTime        @default(now()) @map("created_at")
-  updatedAt     DateTime        @updatedAt @map("updated_at")
-  aiComminicate AiComminicate[]
+  id        String @id @default(uuid(7)) @map("id") @db.VarChar(36)
+  contextId String @map("context_id")
+  role      String @map("role")
+  content   String @map("content") @db.Text
+  model     String @map("model")
 
-  @@map("ai_comminicate_message")
-}
-
-model AiComminicate {
-  id        String   @id @default(uuid(7)) @map("id") @db.VarChar(36)
-  messageId String   @unique @map("message_id")
-  modelId   String   @map("model_id")
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  message AiComminicateMessage @relation(fields: [messageId], references: [id])
-  model   ApiModel             @relation(fields: [modelId], references: [id])
+  apiModelId String   @map("api_model_id")
+  apiModel   ApiModel @relation(fields: [apiModelId], references: [id])
 
-  @@map("ai_comminicate")
+  @@map("ai_comminicate_message")
 }

@@ -2,15 +2,23 @@ import { AggregateRoot } from "@nestjs/cqrs";
 import { v7 as uuidv7 } from "uuid";
 import { APIModel } from "./api-model.model";
 
-export enum AiComminicateMessageRole {
-  USER = "user",
-  ASSISTANT = "assistant",
-}
+export const AiComminicateMessageRole = [
+  "user",
+  "assistant",
+  "system",
+] as const;
+
+export type AiComminicateMessageRole =
+  (typeof AiComminicateMessageRole)[number];
 
 export interface AiComminicateMessageProps {
-  prompt: string;
-  response: string;
-  modelId: string;
+  role: AiComminicateMessageRole;
+  content: string;
+
+  /// The contextId is the AiComminicate id
+  contextId: string;
+
+  model: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -18,13 +26,11 @@ export interface AiComminicateMessageProps {
 export interface AiComminicateMessageCreateProps
   extends Omit<AiComminicateMessageProps, "createdAt" | "updatedAt"> {}
 
-export class AiComminicateMessage extends AggregateRoot {
+export class AiComminicateMessage {
   private constructor(
     public readonly id: string,
     public readonly props: AiComminicateMessageProps,
-  ) {
-    super();
-  }
+  ) {}
 
   public static create(
     props: AiComminicateMessageCreateProps,
@@ -45,14 +51,11 @@ export class AiComminicateMessage extends AggregateRoot {
 }
 
 export interface AiComminicateProps {
-  message: AiComminicateMessage;
   model: APIModel;
-  createdAt: Date;
-  updatedAt: Date;
+  messages: AiComminicateMessage[];
 }
 
-export interface AiComminicateCreateProps
-  extends Omit<AiComminicateProps, "createdAt" | "updatedAt"> {}
+export interface AiComminicateCreateProps extends AiComminicateProps {}
 
 export class AiComminicate extends AggregateRoot {
   private constructor(
@@ -65,9 +68,15 @@ export class AiComminicate extends AggregateRoot {
   public static create(props: AiComminicateCreateProps): AiComminicate {
     return new AiComminicate(uuidv7(), {
       ...props,
-      createdAt: new Date(),
-      updatedAt: new Date(),
     });
+  }
+
+  public addMessage(message: AiComminicateMessage): void {
+    this.props.messages.push(message);
+  }
+
+  public getLatestMessage(): AiComminicateMessage {
+    return this.props.messages[this.props.messages.length - 1];
   }
 
   public static reconstitute(

@@ -1,7 +1,11 @@
-import { AI_comminicate_MESSAGE_API } from "../ai-model.constants";
+import {
+  AI_COMMINICATE_API,
+  AI_COMMINICATE_REPOSITORY,
+} from "../ai-model.constants";
 import { API_MODEL_REPOSITORY } from "../ai-model.constants";
-import { OpenAIComminicateMessageApi } from "./api/openai-ai-comminicate.api";
+import { OpenAIComminicateApi } from "./api/openai-ai-comminicate.api";
 import { PrismaAPIModelRepository } from "./repository/prisma-api-model.repository";
+import { PrismaAiComminicateRepository } from "./repository/prisma-ai-comminicate.repository";
 
 export const INFRASTRUCTURE = [
   {
@@ -9,7 +13,11 @@ export const INFRASTRUCTURE = [
     useClass: PrismaAPIModelRepository,
   },
   {
-    provide: AI_comminicate_MESSAGE_API,
-    useClass: OpenAIComminicateMessageApi,
+    provide: AI_COMMINICATE_API,
+    useClass: OpenAIComminicateApi,
+  },
+  {
+    provide: AI_COMMINICATE_REPOSITORY,
+    useClass: PrismaAiComminicateRepository,
   },
 ];

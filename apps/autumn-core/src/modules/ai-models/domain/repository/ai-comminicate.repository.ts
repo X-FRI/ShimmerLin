@@ -1,7 +1,6 @@
-import { AiComminicateMessage } from "../model/ai-comminicate.model";
+import { AiComminicate } from "../model/ai-comminicate.model";
 
-export interface AiComminicateMessageRepository {
-  save(
-    aiComminicateMessage: AiComminicateMessage,
-  ): Promise<AiComminicateMessage>;
+export interface AiComminicateRepository {
+  save(aiComminicate: AiComminicate): Promise<AiComminicate>;
+  findById(id: string): Promise<AiComminicate>;
 }
