@@ -1,0 +1,17 @@
+node_modules
+logs
+dist
+prompts
+.turbo
+scripts
+.git
+prisma/migrations
+prisma/generated
+scripts
+test
+tests
+
+.dockerignore
+*.md
+
+.env.*
