@@ -10,12 +10,10 @@
     "ignore": [
       "node_modules",
       "dist",
-      "apps/autumn-webui/node_modules/**",
-      "apps/autumn-webui/build/**",
-      "apps/autumn-core/node_modules/**",
-      "apps/autumn-core/dist/**",
-      "apps/autumn-core/prisma/migrations/**",
-      "apps/autumn-core/prisma/generated/**"
+      "apps/shimmer-lin/node_modules/**",
+      "apps/shimmer-lin/dist/**",
+      "apps/shimmer-lin/prisma/migrations/**",
+      "apps/shimmer-lin/prisma/generated/**"
     ]
   },
   "formatter": {

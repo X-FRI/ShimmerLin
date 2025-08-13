@@ -1,0 +1,7 @@
+{
+  "extends": ["//"],
+  "ui": "tui",
+  "tasks": {
+    "prisma-gen-prod:all": {}
+  }
+}

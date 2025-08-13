@@ -2,15 +2,15 @@
 
 <img src="./.github/logo.png" height="150px">
 
-# AutumnBot（铁暮秋）
+# ShimmerLin（微光）
 
 *A Framework for Bridging the Digital and Physical Worlds*
 
 </div>
 
-AutumnBot is a powerful robot framework designed to connect anything within the digital realm to the physical world.
+ShimmerLin is a powerful robot framework designed to connect anything within the digital realm to the physical world.
 
-At its core, `autumn-core` is a NestJS service built with Domain-Driven Design (DDD) principles. It serves as the central hub, allowing peripheral services to connect and communicate over the network. This core handles the fundamental logic and coordination, enabling the framework's extensive capabilities.
+At its core, `shimmer-lin` is a NestJS service built with Domain-Driven Design (DDD) principles. It serves as the central hub, allowing peripheral services to connect and communicate over the network. This core handles the fundamental logic and coordination, enabling the framework's extensive capabilities.
 
 Key Features:
 

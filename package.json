@@ -20,7 +20,7 @@
   "engines": {
     "node": "^20.17.0"
   },
-  "name": "autumn-core",
+  "name": "shimmer-lin",
   "packageManager": "npm@10.2.4",
   "workspaces": [
     "apps/*",

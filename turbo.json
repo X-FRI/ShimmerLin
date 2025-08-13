@@ -11,11 +11,11 @@
     "build": {
       "dependsOn": [
         "^build",
-        "autumn-core#prisma-gen"
+        "shimmer-lin#prisma-gen"
       ],
       "inputs": [
         "$TURBO_DEFAULT",
-        "apps/autumn-core/.env.*"
+        "apps/shimmer-lin/.env.*"
       ],
       "outputs": [
         "dist/**",
