@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="./.github/logo.png" height="150px">
+<img src="./.github/logo.jpg" height="150px">
 
 # ShimmerLin（微光）
 
